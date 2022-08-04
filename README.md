@@ -15,7 +15,7 @@ cd eth-contracts
 npm install
 truffle compile
 
-# MAKE SURE GANACHE IS RUNNING !
+ MAKE SURE GANACHE IS RUNNING !
 
 ```
 
