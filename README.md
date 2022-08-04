@@ -9,7 +9,7 @@ The capstone will build upon the knowledge you have gained in the course in orde
 git clone https://github.com/jay3183/Udacity-Capstone.git
 ```
 
-# Install prerequisite npm software
+# Install Prerequisite npm software
 ```bash
 cd eth-contracts
 npm install
