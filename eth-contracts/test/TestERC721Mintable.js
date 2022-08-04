@@ -57,13 +57,13 @@ contract('CustomERC721Token', accounts => {
             } catch (error) {
                 mintFail = true;
             }
-            assert.equal(mintFail, true, "Was able to mint a coin as non contract owner");
+            assert.equal(mintFail, true, "Mint Fail as non contract owner");
             
         })
 
         it('should return contract owner', async function () { 
-            let firstOwner = this.contract.retrieveCurrentOwner.call();
-            assert.equal(await firstOwner , account_one, "Contract owner not returned properly")
+            let contractOwner = this.contract.retrieveCurrentOwner.call();
+            assert.equal(await contractOwner , account_one, "Not contract owner")
         })
 
     });

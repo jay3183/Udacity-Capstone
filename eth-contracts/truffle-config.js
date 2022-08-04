@@ -18,11 +18,10 @@
  *
  */
 
-// const HDWalletProvider = require('truffle-hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+ const HDWallet = require('truffle-hdwallet-provider');
+ const infuraKey = "d4c7907254ff4ed9b6b9bf1bed308bf7";
+ 
+ const mnemonic = "moment anger volcano prosper letter edit cup lava bridge leave spin blue";
 
 module.exports = {
   /**
@@ -47,7 +46,14 @@ module.exports = {
       port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
      },
-
+     rinkeby: {
+      provider: () => new HDWallet(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
+        network_id: 4,       // rinkeby's id
+        gas: 4500000,        // rinkeby has a lower block limit than mainnet
+       gasPrice: 10000000000,
+          skipDryRun: false     // Skip dry run before migrations? (default: false for public nets )
+    },
+  
     // Another network with more advanced options...
     // advanced: {
       // port: 8777,             // Custom port
@@ -85,8 +91,8 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      // version: "0.5.2",    // Fetch exact version from solc-bin (default: truffle's version)
-  //     docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
+  //     version: "^0.5.16"   // Fetch exact version from solc-bin (default: truffle's version)
+      // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
       //    enabled: false,

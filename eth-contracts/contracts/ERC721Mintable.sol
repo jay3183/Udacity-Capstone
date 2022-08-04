@@ -34,10 +34,11 @@ contract Ownable {
     function transferOwnership(address newOwner) public onlyOwner {
         // TODO add functionality to transfer control of the contract to a newOwner.
         // make sure the new owner is a real address
-        require(newOwner == _owner, "New Owner is owner of contract");
-        require(newOwner != address(0), "newOwer is not a valid address");
+       
+        require(newOwner != address(0), "newOwner is not a real address");
+        address oldOwner = _owner;
          _owner = newOwner;
-        emit ownershipTransfer(_owner, newOwner);
+        emit ownershipTransfer(oldOwner, _owner);
     }
 
 
@@ -58,11 +59,10 @@ contract Pausable is Ownable {
 
 //  2) create a public setter using the inherited onlyOwner modifier 
 
-function pausable(bool isPaused) public onlyOwner returns (bool)  {
-    require(_paused == false, "paused variable is not false");
+function pausable(bool isPaused) public onlyOwner  {
+    require(_paused != isPaused, "paused variable is not false");
      _paused = isPaused;
-     isPaused = true;
-    return isPaused;
+   
 }
 
 //  3) create an internal constructor that sets the _paused variable to false
@@ -73,14 +73,14 @@ function pausable(bool isPaused) public onlyOwner returns (bool)  {
 
 //  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
 modifier whenNotPaused(){
-    require(_paused != false, "paused is not false");
+    require(!_paused, "paused is not false");
     
     _;    
 }
 
 modifier paused(){
-   require(_paused != true, "paused is not true");
-   _paused = true; 
+   require(_paused, "paused is not true");
+   
    _;
 }
 //  5) create a Paused & Unpaused event that emits the address that triggered the event
@@ -187,10 +187,10 @@ contract ERC721 is Pausable, ERC165 {
         
         address ownerOfTokenId = ownerOf(tokenId);
 
-        require(ownerOfTokenId != to , "Owner of Token ID is equal to the to address" );
+        require(to != ownerOfTokenId, "Owner of Token ID is equal to the to address" );
 
         // TODO require the msg sender to be the owner of the contract or isApprovedForAll() to be true
-        require(msg.sender == _owner || isApprovedForAll(ownerOfTokenId, msg.sender));
+        require(msg.sender == ownerOfTokenId || isApprovedForAll(ownerOfTokenId, msg.sender));
 
         // TODO add 'to' address to token approvals
         _tokenApprovals[tokenId] = to;
@@ -530,11 +530,10 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 
     constructor (string memory name, string memory symbol, string memory baseTokenURI) public {
         // TODO: set instance var values
-        name = _name;
-        symbol = _symbol;
-        baseTokenURI = _baseTokenURI;
-
-        _registerInterface(_INTERFACE_ID_ERC721_METADATA);
+        _name = name;
+        _symbol = symbol;
+        _baseTokenURI = baseTokenURI;
+       super._registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
 
     // TODO: create external getter functions for name, symbol, and baseTokenURI
@@ -582,16 +581,22 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 //      -returns a true boolean upon completion of the function
 //      -calls the superclass mint and setTokenURI functions
 
-contract  CustomERC721Token is ERC721Metadata("Real Estate NFT Tokens", "RENT", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") {
+contract  CustomERC721Token is ERC721Metadata ("RealEstate NFT Tokens", "RENT", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/"){
+//    -takes in a 'to' address, tokenId, and tokenURI as parameters
+//("RealEstate NFT Tokens", "RENT", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/")
+      //  constructor(string memory name, string memory symbol) 
+      //  ERC721Metadata(name, symbol, "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/")
+      //  public
+      //  {
 
+      //  }
 
-//      -takes in a 'to' address, tokenId, and tokenURI as parameters
-    function mint(address to, uint256 tokenId) public onlyOwner returns (bool) {
-        
-        //      -calls the superclass mint and setTokenURI functions
-        super._mint(to, tokenId);
+      
+       function mint(address to, uint256 tokenId) public onlyOwner  returns (bool) {
+       // -calls the superclass mint and setTokenURI functions
+         super._mint(to, tokenId);
          tokenURISet(tokenId);
-        //      -returns a true boolean upon completion of the function
+        // -returns a true boolean upon completion of the function
         return true;
     }
 }
