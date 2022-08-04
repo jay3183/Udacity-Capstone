@@ -803,7 +803,7 @@ Node v16.5.0
 Web3.js v1.5.3
 ```
 
-## Open Sea Links
+## Contract Address / Open Sea Links
 
 contract address:
 https://rinkeby.etherscan.io/address/0xfb7467e719Ea856e29d40bdfC3c33D5DE9b1d9C4
