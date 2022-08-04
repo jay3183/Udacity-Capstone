@@ -14,12 +14,26 @@ git clone https://github.com/jay3183/Udacity-Capstone.git
 cd eth-contracts
 npm install
 truffle compile
+
+# MAKE SURE GANACHE IS RUNNING !
+
 ```
 
 ## Test Smart Contracts
 
 ```bash
 truffle test
+```
+
+## ABI
+
+```bash
+
+
+
+
+
+
 ```
 
 
