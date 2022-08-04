@@ -2,6 +2,28 @@
 
 The capstone will build upon the knowledge you have gained in the course in order to build a decentralized housing product. 
 
+## Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/jay3183/Udacity-Capstone.git
+```
+
+# Install prerequisite npm software
+```bash
+cd eth-contracts
+npm install
+truffle compile
+```
+
+## Test Smart Contracts
+
+```bash
+truffle test
+```
+
+
+## Software Versions 
 
 ```sh
 Truffle v5.4.33 (core: 5.4.33)
